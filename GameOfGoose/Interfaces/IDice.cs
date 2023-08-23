@@ -1,7 +1,8 @@
 ﻿namespace GameOfGoose.Interfaces
 {
     public interface IDice
-    {
-        int Roll();
+    {  
+        public int Roll();
+        public int DiceRoll();
     }
 }
