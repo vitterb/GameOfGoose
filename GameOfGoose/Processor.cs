@@ -45,6 +45,11 @@ namespace GameOfGoose
             int largerRoll = Math.Max(Roll1, Roll2);
             int result = Roll1+Roll2;
 
+            if (player.SkipNextTurn)
+            {
+                result = 0;
+                player.SkipNextTurn = false;
+            }
             if (result == 9 && turn == 1)
             {
                 if ((smallerRoll == 3 && largerRoll == 6) || (smallerRoll == 4 && largerRoll == 5))

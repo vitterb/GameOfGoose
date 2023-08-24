@@ -1,4 +1,5 @@
-﻿using GameOfGoose.GameObjects;
+﻿using GameOfGoose.Factory;
+using GameOfGoose.GameObjects;
 using GameOfGoose.GameObjects.Squares;
 using GameOfGoose.Interfaces;
 using Moq;
@@ -403,6 +404,29 @@ namespace GameOfGoose
             // Assert
             
             Assert.Equal(51,player.Position);
+        }
+
+        [Fact]
+        public void PlayerSkipsNextTurnWhenOnInn()
+        {
+            // Arrange
+            var mockLogger = new Mock<ILogger>();
+            var player = playerList.First();
+            var processor = new Processor(mockLogger.Object);
+            processor.Board = board;
+            processor.players.Add(player);
+            processor.players[0].Position = 19;
+            processor.players[0].SkipNextTurn = true;
+            int turn = 1;
+            
+            // Act
+
+            processor.TurnLogic(3, 4, 1, player);
+            processor.TurnLogic(3, 4, 2, player);
+
+            // Assert
+
+            Assert.Equal(19, processor.players[0].Position); 
         }
     }
 }
