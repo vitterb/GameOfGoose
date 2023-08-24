@@ -9,16 +9,16 @@ namespace GameOfGoose
     {
         public string Name { get; }
         public int Position { get; set; }
-        public bool SkipNextTurn { get; set; }
-        public bool SkipThreeTurns { get; set; }
         public bool GameOver { get; set; }
         public bool IsWaiting { get; set; }
         public bool IsMovingForward { get ; set ; }
+        public int SkipCounter { get; set; }
         
         public Player(string name)
         {
             Name = name;
             Position = 0;
+            SkipCounter = 0;
         }
         
 

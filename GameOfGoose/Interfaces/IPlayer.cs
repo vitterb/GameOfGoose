@@ -8,9 +8,8 @@ namespace GameOfGoose.Interfaces
         bool IsWaiting { get; set; }
         string Name { get; }
         int Position { get; set; }
-        bool SkipNextTurn { get; set; }
-        bool SkipThreeTurns { get; set; }
         bool IsMovingForward { get; set; }
+        int SkipCounter { get; set; }
 
 
         void DiceRollAndMove(GameBoard board, IDice dice);

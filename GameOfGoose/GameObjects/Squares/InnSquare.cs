@@ -16,7 +16,7 @@ namespace GameOfGoose.GameObjects.Squares
 
         public void Action(IPlayer player)
         {
-            player.SkipNextTurn = true;
+            player.SkipCounter = 1;
         }
     }
 }

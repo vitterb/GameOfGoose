@@ -45,10 +45,10 @@ namespace GameOfGoose
             int largerRoll = Math.Max(Roll1, Roll2);
             int result = Roll1+Roll2;
 
-            if (player.SkipNextTurn)
+            if ( player.SkipCounter != 0)
             {
                 result = 0;
-                player.SkipNextTurn = false;
+                player.SkipCounter -= 1;
             }
             if (result == 9 && turn == 1)
             {

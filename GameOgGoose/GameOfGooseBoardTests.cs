@@ -266,8 +266,8 @@ namespace GameOfGoose
             //Act
             Square.Action(player);
 
-            Assert.True(player.SkipNextTurn);
-            output.WriteLine("player bool skipturn is set to true");
+            Assert.Equal(1,player.SkipCounter);
+            output.WriteLine("player SkipCounter = 1");
         }
         [Fact]
         public void PlayerLandsOnMaze() 
@@ -298,7 +298,7 @@ namespace GameOfGoose
 
             // Assert
 
-            Assert.True(player.SkipThreeTurns);
+            Assert.Equal(3, player.SkipCounter);
             output.WriteLine("Player bool skipThreeTurns is set to true");
         }
         [Fact]
@@ -415,9 +415,7 @@ namespace GameOfGoose
             var processor = new Processor(mockLogger.Object);
             processor.Board = board;
             processor.players.Add(player);
-            processor.players[0].Position = 19;
-            processor.players[0].SkipNextTurn = true;
-            int turn = 1;
+            processor.players[0].SkipCounter = 1; 
             
             // Act
 
@@ -426,7 +424,32 @@ namespace GameOfGoose
 
             // Assert
 
-            Assert.Equal(19, processor.players[0].Position); 
+            Assert.Equal(7, processor.players[0].Position);
+            output.WriteLine("player doesn't move if skipCounter is set to 1");
+        }
+
+        [Fact]
+        public void PlayerSkipsThreeTurnsWhenLandingOnPrison()
+        {
+            // Arrange
+            var mockLogger = new Mock<ILogger>();
+            var player = playerList.First();
+            var processor = new Processor(mockLogger.Object);
+            processor.Board = board;
+            processor.players.Add(player);
+            processor.players[0].SkipCounter = 3;
+
+            // Act
+
+            processor.TurnLogic(3, 4, 1, player);
+            processor.TurnLogic(3, 4, 2, player);
+            processor.TurnLogic(3, 4, 1, player);
+            processor.TurnLogic(3, 4, 1, player);
+
+            // Assert
+
+            Assert.Equal(7, processor.players[0].Position);
+            output.WriteLine("player doesn't move if skipCounter is set to 3");
         }
     }
 }
